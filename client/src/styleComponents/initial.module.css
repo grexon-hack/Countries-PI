@@ -1,0 +1,62 @@
+
+.initialview {
+    width: 100%;
+    height: calc(100vh);
+    background-image: url('https://studentsforliberty.org/eslibertad/wp-content/uploads/sites/4/2021/09/globalizacion-politica-internacional-economia.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -2;
+}
+.initialview h1,a {
+    color: black;
+    background: none;
+}
+.borderAlert {
+    width: 410px;
+    height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 1;
+    overflow: hidden;
+    position: fixed;
+    /* background-color: var(--Target); */
+
+}
+.alertInitial {
+    width: 400px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: var(--Target);
+}
+.alertInitial::before {
+    content: '';
+    width: 600px;
+    height: 120px;
+    background-color: red;
+    position: absolute;
+    z-index: -1;
+    transition: all ease 2s;
+    animation: giro 4s linear infinite forwards;
+}
+
+@keyframes giro {
+    0% {
+        transform:rotate(0deg);
+
+    }
+    50% {
+        transform:rotate(180deg);
+        background-color: rgb(43, 226, 73);
+    }
+    100% {
+        transform:rotate(360deg);
+        background-color: rgb(245, 6, 165);
+    }
+}
