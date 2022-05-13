@@ -1,54 +1,68 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
-import { callApi, detailGet } from "../redux/action";
+import { NavLink } from "react-router-dom";
+import { detailGet } from "../redux/action";
 import styles from "../styleComponents/main.module.css";
+import FilterPage from "./filters.jsx";
 
 export default function MainPage() {
   const selector = useSelector((state) => state.countries);
   const dispatch = useDispatch();
-  const history = useHistory();
 
-  const [paginate, setPaginate] = useState(1);
+  // accion para paginado a nivel local...
+  const [paginate, setPaginate] = useState(0);
 
-  useEffect(() => {
-    dispatch(callApi(paginate));
-  }, [paginate]);
- 
+  const pagenationCountries = () => {
+    return selector.slice(paginate, paginate + 10);
+  };
+  //------------------------------------------
+
   return (
     <div className={styles.containTarget}>
-      <h1>mainPage</h1>
-      <button onClick={() => history.goBack()}>atras</button>
-      <div className={styles.targets}>
-        {selector.map((data) => {
-          return (
-            <div key={data.ID} className={styles.target}>
-              <div className={styles.showFirst}>
-                <p>{data.NameOficial}</p>
-                <img src={data.Image} alt="bandera" />
-              </div>
-              <div className={styles.showSecond}>
-                <p>{data.Continent}</p>
-                <NavLink to={"/countries/details"}>
-                  <button onClick={() => dispatch(detailGet(data.ID))}>
-                    Detail
-                  </button>
-                </NavLink>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      <div>
-        <button onClick={() => paginate > 1 && setPaginate(() => paginate - 1)}>
-          Previous
-        </button>
-        <button
-          onClick={() => paginate < 25 && setPaginate(() => paginate + 1)}
-        >
-          Next
-        </button>
-      </div>
+      {selector.length ? (
+        <>
+          <div className={styles.filters}>
+            <FilterPage />
+          </div>
+          <div className={styles.targets}>
+            {pagenationCountries().map((data) => {
+              return (
+                <div key={data.ID} className={styles.target}>
+                  <div className={styles.showFirst}>
+                    <p>{data.Name}</p>
+                    <img src={data.Image} alt="bandera" />
+                  </div>
+                  <div className={styles.showSecond}>
+                    <p>{data.Continent}</p>
+                    <NavLink to={"/countries/details"}>
+                      <button onClick={() => dispatch(detailGet(data.ID))}>
+                        Detail
+                      </button>
+                    </NavLink>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className={styles.buttonsP}>
+            <button
+              onClick={() => paginate > 0 && setPaginate(() => paginate - 10)}
+            >
+              Previous
+            </button>
+            <button
+              onClick={() =>
+                paginate < selector.length - 10 &&
+                setPaginate(() => paginate + 10)
+              }
+            >
+              Next
+            </button>
+          </div>
+        </>
+      ) : (
+        <h1>LOADING...</h1>
+      )}
     </div>
   );
 }

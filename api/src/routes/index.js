@@ -1,5 +1,6 @@
-const { Router} = require('express');
+const { Router } = require('express');
 var express = require('express');
+const {Op} = require('sequelize')
 const { Countries, TouristActivities } = require('../db.js');
 const { saveAll } = require('./controllers.js')
 
@@ -11,90 +12,124 @@ router.use(express.json())
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-router.post('/', async(req, res) => {
+
+// accion del bulkCreate a la base de datos
+// funcion saveAll es traida de controllers.js y obtiene los datos requeridos 
+// de la api 
+router.post('/', async (req, res) => {
     try {
         const dataBd = await Countries.findAll();
         const datos = await saveAll();
-        if(dataBd.length === 0 && datos.length !== 0){
+        if (dataBd.length === 0 && datos.length !== 0) {
             await Countries.bulkCreate(datos);
-            
+
         }
         res.send('succesfull')
-   
+
     } catch (error) {
         res.status(400).send(error);
-    
+
     }
 
- 
+
 })
 
 
 router.get('/countries', async (req, res) => {
-    const { name, ID , size, page} = req.query;
-    
+    const { name, ID, filterC, mode, popul, filterA } = req.query;
+
     try {
-        
-        if(name) {
-            const byName = await Countries.findOne({
-                where:{
-                    Name : name
-                }
-            })
-           return res.json(byName.toJSON())
+
+        if (name) {
+            try {
+                const byName = await Countries.findAll({
+                    where: {
+                        Name: {
+                            [Op.iLike] : `%${name}%`
+                        }
+                    },
+                    include: [{
+                        model: TouristActivities,
+                        through: {
+                            attributes: []
+                        }
+                    }]
+                })
+    
+                
+                return res.send(byName)
+            } catch (error) {
+                res.status(404).send({msg: error})
+            }
+            
         }
 
-        if(ID) {
-            const byId = await Countries.findByPk(ID , {
-                include : [{
-                    model : TouristActivities,
+        if (ID) {
+            const byId = await Countries.findByPk(ID, {
+                include: [{
+                    model: TouristActivities,
                     through: {
                         attributes: []
                     }
                 }]
             })
-            
-           return res.json(byId)
+
+            return res.json(byId)
         }
-
-        //paginación
-
-        let base = await Countries.findAndCountAll({
-            limit: size,
-            offset: page * size
+       
+        
+        let base = await Countries.findAll({
+            where: filterC&&{Continent : filterC},
+            include: [{
+                model: TouristActivities,
+                where:filterA&&{Name : filterA},
+                through: {
+                    attributes: []
+                }
+            }],
+            order: mode ? [["Name", mode]] : popul ? [["Population", popul]] : null
         });
-            
-            res.send(base)
+
+
+        
+        res.send(base)
     } catch (error) {
         res.status(404).send(error)
     }
-    
-    
+
+
 })
 
 router.post('/activity', async (req, res) => {
-    const {ID, Name, Difficult, Duration, Season } = req.body;
+    const { Name, Difficult, Duration, Season, nombrePais} = req.body;
 
-    try{
+    try {
 
         await TouristActivities.create({
-                Name,
-                Difficult,
-                Duration,
-                Season
+            Name,
+            Difficult,
+            Duration,
+            Season
         })
-        const Act = await TouristActivities.findOne({
-            where:{
-                Name : Name
-            }
-        })
-
-        const country = await Countries.findByPk(ID);
-        await country.addTouristActivities(Act)
+        nombrePais.forEach (async element => {
+            
+            const Act = await TouristActivities.findOne({
+                where: {
+                    Name: Name
+                }
+            })
+            const country = await Countries.findOne({
+                where: {
+                    Name : element
+                }
+            });
+            await country.addTouristActivities(Act)
+        });
+        
         res.status(200).send('was created your activity succesfully')
     }
-    catch(error) {
-        res.send(error)
+    catch (error) {
+        res.status(400).send(error)
     }
 })
 

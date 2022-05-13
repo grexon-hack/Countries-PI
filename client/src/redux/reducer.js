@@ -1,12 +1,12 @@
 const initialState = {
-    countries : [],
-    details : []
+    countries: [],
+    details: []
 }
 
 
 function rootReducer(state = initialState, action) {
 
-    switch(action.type) {
+    switch (action.type) {
         case 'DATA':
             
             return {
@@ -18,6 +18,7 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 details: action.payload
             }
+
         default:
             return state
     }

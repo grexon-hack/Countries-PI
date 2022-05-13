@@ -17,7 +17,6 @@
   box-sizing: border-box;
   font-family: "Roboto Slab", serif;
   /* background-color: var(--BackGround); */
-  color: var(--letter);
 }
 
 body {
@@ -31,12 +30,18 @@ body {
 }
 
 button {
-  padding: 8px;
+  padding: 4px 8px;
   background-color: var(--ColorBotons);
   border-radius: 5px;
   margin: 0;
+  cursor: pointer;
+  box-shadow: 1px 1px 8px;
 }
 
 button:hover {
   background-color: var(--hoverBotton);
+  
+}
+button:active {
+  box-shadow: inset 1px 1px 5px black, inset -1px -1px 3px black;
 }

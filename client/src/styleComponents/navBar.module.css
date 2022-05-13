@@ -1,0 +1,54 @@
+.contain {
+    height: 80px;
+    width:100%;
+    background-color: var(--backNavbar);
+    position: fixed;
+    color: var(--letter);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+.contain img {
+    width: 60px;
+
+}
+.search {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.search button {
+    padding: 0 2px;
+}
+.search input[type='text'] {
+    margin: 0 30px;
+    border-radius: 5px;
+    width: 50%;
+    height: 30px;
+}
+.nav {
+    width: 100%;
+
+}
+
+.containFilter {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row-reverse;
+
+}
+
+.filtro {
+    width: 60%;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+
+}
+.filtro p {
+    color: white
+}
