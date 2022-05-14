@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styleComponents/form.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -11,40 +11,49 @@ export default function CreatorPage() {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state.countries);
 
+  // este estado es para marcar y desmarcar las opciones de paises para setearle la actividad
   const [marker, setMarker] = useState(false);
 
-  const [ exit, setExit ] = useState(false)
+  // para mostrar la targeta con mensaje que su request fue exitoso
+  const [exit, setExit] = useState(false);
 
+  // recolector de informacion del formulario
   const [activity, setActivity] = useState({
     Name: "",
     Difficult: 0,
     Duration: "",
-    Season: "",
+    Season1: "",
   });
 
+  // simulacion de loading
+  const [loading, setLoading] = useState(true);
+
+  // manejador de errores sobre la informacion del formulario
   const [error, setError] = useState({});
 
-  const [ nombres, setNombres] = useState([]);
+  // recolector de nombres de paises para despachar la actividad a multiples paises
+  const [nombres, setNombres] = useState([]);
 
+  // toggle de minimapas
   const handlerToggle = (e, data) => {
     if (e.target.classList.value === "") {
       setMarker(true);
       e.target.classList = styles.marker;
-        setNombres([...nombres, data])
+      setNombres([...nombres, data]);
     } else {
       setMarker(false);
       e.target.classList = "";
-      setNombres(nombres.filter(d => d !== data))
+      setNombres(nombres.filter((d) => d !== data));
     }
-    
   };
-  
+
   const handlerChange = (e) => {
     setActivity({
       ...activity,
       [e.target.name]: e.target.value,
     });
 
+    // verifica errores y si hay los envia al state  error
     setError(
       Validate({
         ...activity,
@@ -55,90 +64,133 @@ export default function CreatorPage() {
 
   const handlerSubmit = (e) => {
     e.preventDefault();
-    console.log(marker)
-    if(IsEmpty(activity) && nombres.length) {
-        dispatch(CreatedActivity({ ...activity, nombrePais : nombres}));
-        setExit(true)
+
+    // este console.log es solo para quitar la advertencia de que no estaba usando marker
+    console.log(marker);
+
+    // verifica que todas las propiedades del state activity tengan valor y que state
+    // nombres tenga un length mayor que 0, y despacha la informacion.
+    if (IsEmpty(activity) && nombres.length) {
+      dispatch(CreatedActivity({ ...activity, nombrePais: nombres })).then(
+        (data) => {
+          if (data.status === 200) setExit(true);
+          else alert(data.statusText);
+        },
+      );
     }
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+
   return (
     <div className={styles.container}>
-        {exit&&<TargetExit />}
-      <h1>creatorPage</h1>
-      <button onClick={() => history.push("/countries")}>atras</button>
-      <div className={styles.containerFormulario}>
-        <div className={styles.formulario}>
-          <form onSubmit={(e) => handlerSubmit(e)}>
-            <label> Name: </label>
-            <input
-              type="text"
-              name="Name"
-              value={activity.Name}
-              onChange={(e) => handlerChange(e)}
-            />
-            <br />
-            <br />
-            <label> Difficult: </label>
-            <input
-              type="number"
-              name="Difficult"
-              value={activity.Difficult}
-              onChange={(e) => handlerChange(e)}
-            />
-            <br />
-            <br />
-            <label> Duration: </label>
-            <input
-              type="text"
-              name="Duration"
-              value={activity.Duration}
-              onChange={(e) => handlerChange(e)}
-            />
-            <br />
-            <br />
-            <label> Season: </label>
-            <input
-              type="text"
-              name="Season"
-              value={activity.Season}
-              onChange={(e) => handlerChange(e)}
-            />
-            <br />
-            <br />
-            <button
-              disabled={Object.keys(error).length ? true : false}
-              type="submit"
-            >
-              Enviar
-            </button>
-          </form>
-          <ul>
-          {
-              nombres.length?nombres.map((d, i)=> {
-                return (
-                    <li key={i}>{d}</li>
-                )
-              }):''
-
-              
-          }
-          </ul>
-        </div>
-        <div className={styles.miniBanderas}>
-          {selector.map((data) => {
-            return (
-              <div className={styles.mini} key={data.ID}>
-                <img
-                  src={data.Image}
-                  alt="mini bandera"
-                  onClick={(e) => handlerToggle(e, data.Name)}
+      {exit && <TargetExit />}
+      {loading ? (
+        <>
+          <img
+            src="https://reygif.com/media/2/globo-terraqueo-tierra-21343.gif"
+            alt="Loading"
+          />
+          <h2>Loading...</h2>
+        </>
+      ) : (
+        <>
+          <h1>creatorPage</h1>
+          <button onClick={() => history.push("/countries")}>atras</button>
+          <div className={styles.containerFormulario}>
+            <div className={styles.formulario}>
+              <form onSubmit={(e) => handlerSubmit(e)}>
+                <p>
+                  <strong>Name:</strong>{" "}
+                </p>
+                <input
+                  autoComplete="off"
+                  type="text"
+                  name="Name"
+                  value={activity.Name}
+                  onChange={(e) => handlerChange(e)}
                 />
-              </div>
-            );
-          })}
-        </div>
-      </div>
+                <br />
+                <span>{error.Name}</span>
+                <br />
+                <br />
+                <p>
+                  <strong>Difficult:</strong>{" "}
+                </p>
+                <input
+                  autoComplete="off"
+                  type="number"
+                  name="Difficult"
+                  value={activity.Difficult}
+                  onChange={(e) => handlerChange(e)}
+                />
+                <br />
+                <span>{error.Difficult}</span>
+                <br />
+                <br />
+                <p>
+                  <strong>Duration:</strong>{" "}
+                </p>
+                <input
+                  autoComplete="off"
+                  type="text"
+                  name="Duration"
+                  value={activity.Duration}
+                  onChange={(e) => handlerChange(e)}
+                />
+                <br />
+                <span>{error.Duration}</span>
+                <br />
+                <br />
+                <p>
+                  <strong>Season:</strong>{" "}
+                </p>
+                <input
+                  autoComplete="off"
+                  type="text"
+                  name="Season1"
+                  value={activity.Season1}
+                  onChange={(e) => handlerChange(e)}
+                />
+                <br />
+                <span>{error.Season1}</span>
+                <br />
+                <br />
+                <button
+                  disabled={Object.keys(error).length ? true : false}
+                  type="submit"
+                >
+                  Enviar
+                </button>
+              </form>
+              <ul>
+                {nombres.length
+                  ? nombres.map((d, i) => {
+                      return <li key={i}>{d}</li>;
+                    })
+                  : ""}
+              </ul>
+            </div>
+            <div className={styles.miniBanderas}>
+              {selector.map((data) => {
+                return (
+                  <div className={styles.mini} key={data.ID}>
+                    <img
+                      src={data.Image}
+                      alt="mini bandera"
+                      onClick={(e) => handlerToggle(e, data.Name)}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

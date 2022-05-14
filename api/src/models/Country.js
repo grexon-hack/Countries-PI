@@ -39,6 +39,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    Capital : {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     Timezone:{
       type: DataTypes.STRING
     },

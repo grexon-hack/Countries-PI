@@ -23,8 +23,9 @@ export default function TargetExit() {
             <h1>Exit</h1>
             <br />
             <p>the activity has been successfully registered in our
-                <strong>DataBase</strong>
+                 <strong>DataBase</strong>
             </p>
+            
             </div>
             <div className={styles.botones}>
             <button onClick={() => handlerClick()}>Exit</button>

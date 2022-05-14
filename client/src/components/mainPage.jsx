@@ -61,7 +61,10 @@ export default function MainPage() {
           </div>
         </>
       ) : (
+        <>
+        <img src="https://reygif.com/media/2/globo-terraqueo-tierra-21343.gif" alt="" />
         <h1>LOADING...</h1>
+        </>
       )}
     </div>
   );

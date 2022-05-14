@@ -1,8 +1,9 @@
 const { Router } = require('express');
 var express = require('express');
-const {Op} = require('sequelize')
+const { Op } = require('sequelize');
+
 const { Countries, TouristActivities } = require('../db.js');
-const { saveAll } = require('./controllers.js')
+const { saveAll, changeWord } = require('./controllers.js')
 
 
 
@@ -20,6 +21,7 @@ router.post('/', async (req, res) => {
     try {
         const dataBd = await Countries.findAll();
         const datos = await saveAll();
+
         if (dataBd.length === 0 && datos.length !== 0) {
             await Countries.bulkCreate(datos);
 
@@ -32,57 +34,45 @@ router.post('/', async (req, res) => {
     }
 
 
-})
+});
 
+router.get('/countries/name', async (req, res) => {
+    const { name } = req.query;
+
+    try {
+        const byName = await Countries.findAll({
+            where: {
+                Name: {
+                    [Op.iLike]: `%${name}%`
+                }
+            },
+            include: [{
+                model: TouristActivities,
+                through: {
+                    attributes: []
+                }
+            }]
+        })
+
+
+        return res.send(byName)
+    } catch (error) {
+        res.status(404).send({ msg: error })
+    }
+
+
+});
 
 router.get('/countries', async (req, res) => {
-    const { name, ID, filterC, mode, popul, filterA } = req.query;
+    const { filterC, mode, popul, filterA } = req.query;
 
     try {
 
-        if (name) {
-            try {
-                const byName = await Countries.findAll({
-                    where: {
-                        Name: {
-                            [Op.iLike] : `%${name}%`
-                        }
-                    },
-                    include: [{
-                        model: TouristActivities,
-                        through: {
-                            attributes: []
-                        }
-                    }]
-                })
-    
-                
-                return res.send(byName)
-            } catch (error) {
-                res.status(404).send({msg: error})
-            }
-            
-        }
-
-        if (ID) {
-            const byId = await Countries.findByPk(ID, {
-                include: [{
-                    model: TouristActivities,
-                    through: {
-                        attributes: []
-                    }
-                }]
-            })
-
-            return res.json(byId)
-        }
-       
-        
         let base = await Countries.findAll({
-            where: filterC&&{Continent : filterC},
+            where: filterC && { Continent: filterC },
             include: [{
                 model: TouristActivities,
-                where:filterA&&{Name : filterA},
+                where: filterA && { Name: filterA },
                 through: {
                     attributes: []
                 }
@@ -91,18 +81,40 @@ router.get('/countries', async (req, res) => {
         });
 
 
-        
+
         res.send(base)
     } catch (error) {
+
         res.status(404).send(error)
     }
 
 
 })
 
-router.post('/activity', async (req, res) => {
-    const { Name, Difficult, Duration, Season, nombrePais} = req.body;
 
+
+router.get('/countries/:ID', async (req, res) => {
+    const { ID } = req.params;
+    if (ID) {
+        const byId = await Countries.findByPk(ID, {
+            include: [{
+                model: TouristActivities,
+                through: {
+                    attributes: []
+                }
+            }]
+        })
+
+        return res.json(byId)
+    }
+})
+
+
+
+
+router.post('/activity', async (req, res) => {
+    const { Name, Difficult, Duration, Season1, nombrePais } = req.body;
+    let Season = changeWord(Season1)
     try {
 
         await TouristActivities.create({
@@ -111,8 +123,8 @@ router.post('/activity', async (req, res) => {
             Duration,
             Season
         })
-        nombrePais.forEach (async element => {
-            
+        nombrePais.forEach(async element => {
+
             const Act = await TouristActivities.findOne({
                 where: {
                     Name: Name
@@ -120,12 +132,12 @@ router.post('/activity', async (req, res) => {
             })
             const country = await Countries.findOne({
                 where: {
-                    Name : element
+                    Name: element
                 }
             });
             await country.addTouristActivities(Act)
         });
-        
+
         res.status(200).send('was created your activity succesfully')
     }
     catch (error) {

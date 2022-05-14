@@ -14,7 +14,7 @@ export function callAsyncPost() {
     }
 }
 
-// dispatch a la base de datos
+// peticiones a la base de datos
 export function callApi() {
 
     return function (dispatch) {
@@ -25,9 +25,9 @@ export function callApi() {
 }
 
 
-export function detailGet(val) {
+export function detailGet(ID) {
     return function (dispatch) {
-        return fetch(`http://localhost:3002/countries?ID=${val}`)
+        return fetch(`http://localhost:3002/countries/${ID}`)
             .then(response => response.json())
             .then(data => dispatch({ type: 'DETAIL', payload: data }))
     }
@@ -35,7 +35,7 @@ export function detailGet(val) {
 
 export function detailGetName(val) {
     return function (dispatch) {
-        return fetch(`http://localhost:3002/countries?name=${val}`)
+        return fetch(`http://localhost:3002/countries/name?name=${val}`)
             .then(response => response.json())
             .then(data => dispatch({ type: 'DATA', payload: data }))
             .catch(error => console.log(error))
@@ -45,7 +45,7 @@ export function detailGetName(val) {
 
 export function CreatedActivity(value) {
 
-    
+
 
     return function (dispatch) {
         return fetch('http://localhost:3002/activity', {
@@ -55,8 +55,8 @@ export function CreatedActivity(value) {
                 'Content-Type': 'application/json'
             }
         })
-            // .then(res => res.json())
-            // .then(response => console.log('Success: ', response))
+        // .then(res => res.json())
+        // .then(response => console.log('Success: ', response))
 
 
     }
@@ -66,7 +66,7 @@ export function CreatedActivity(value) {
 // acciones de filtrado...
 
 export function callApiFilter(valueFilter) {
-
+// filtro por continente
     return function (dispatch) {
         return fetch(`http://localhost:3002/countries?filterC=${valueFilter}`)
             .then(response => response.json())
@@ -75,7 +75,7 @@ export function callApiFilter(valueFilter) {
 }
 
 export function callApiFilterAct(valueFilter) {
-
+// filtro por actividad turistica
     return function (dispatch) {
         return fetch(`http://localhost:3002/countries?filterA=${valueFilter}`)
             .then(response => response.json())
@@ -84,7 +84,7 @@ export function callApiFilterAct(valueFilter) {
 }
 
 export function ordenAlpha(mode) {
-
+// filtro alfabetico
 
     return function (dispatch) {
         return fetch(`http://localhost:3002/countries?mode=${mode}`)
@@ -95,7 +95,7 @@ export function ordenAlpha(mode) {
 }
 
 export function ordenPopul(mode) {
-
+// filtro por poblacion
 
     return function (dispatch) {
         return fetch(`http://localhost:3002/countries?popul=${mode}`)

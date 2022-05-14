@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { callApi, callApiFilter, callApiFilterAct, ordenAlpha, ordenPopul } from "../redux/action";
+import {
+  callApi,
+  callApiFilter,
+  callApiFilterAct,
+  ordenAlpha,
+  ordenPopul,
+} from "../redux/action";
 
 import styles from "../styleComponents/navBar.module.css";
 import { flat } from "./validate";
@@ -9,7 +15,6 @@ export default function FilterPage() {
   const dispatch = useDispatch();
   const [view, setView] = useState(false);
   const selector = useSelector((state) => state.countries);
-
 
   // con este reducer obtengo los nombre de los continentes sin repeticiones para
   // los filtros...
@@ -20,7 +25,6 @@ export default function FilterPage() {
     return acc;
   }, []);
 
-  
   return (
     <div className={styles.containFilter}>
       <svg
@@ -43,7 +47,6 @@ export default function FilterPage() {
         <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM3.5 5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1zM5 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"></path>
       </svg>
 
-
       <div className={styles.filtro}>
         {view && (
           <>
@@ -63,12 +66,13 @@ export default function FilterPage() {
                   );
                 })}
               </select>
-
-              <input type="submit" value="Submit" />
             </form>
             <form>
               <p>Activities:</p>
-              <select name="Activities" onChange={(e) => dispatch(callApiFilterAct(e.target.value))}>
+              <select
+                name="Activities"
+                onChange={(e) => dispatch(callApiFilterAct(e.target.value))}
+              >
                 <option value={null}>Filter</option>
                 {flat(selector).map((d, i) => {
                   return (
@@ -78,28 +82,34 @@ export default function FilterPage() {
                   );
                 })}
               </select>
-
-              <input type="submit" value="Submit" />
             </form>
             <form>
               <p>Alphabetic:</p>
-              <select name="cars" onChange={(e) => e.target.value !== 'Filter' && dispatch(ordenAlpha(e.target.value))}>
-                <option value='Filter'>Filter</option>
+              <select
+                name="cars"
+                onChange={(e) =>
+                  e.target.value !== "Filter" &&
+                  dispatch(ordenAlpha(e.target.value))
+                }
+              >
+                <option value={null}>Filter</option>
                 <option value="ASC">[A - Z]</option>
                 <option value="DESC">[Z - A]</option>
               </select>
-
-              <input type="submit" value="Submit" />
             </form>
             <form>
               <p>Population:</p>
-              <select name="cars" onChange={(e) => e.target.value !== 'Filter' && dispatch(ordenPopul(e.target.value))}>
-                <option value='Filter'>Filter</option>
+              <select
+                name="cars"
+                onChange={(e) =>
+                  e.target.value !== "Filter" &&
+                  dispatch(ordenPopul(e.target.value))
+                }
+              >
+                <option value={null}>Filter</option>
                 <option value="DESC">DESC</option>
                 <option value="ASC">ASC</option>
               </select>
-
-              <input type="submit" value="Submit" />
             </form>
           </>
         )}
