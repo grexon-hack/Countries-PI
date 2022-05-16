@@ -3,6 +3,7 @@ import styles from "../styleComponents/navBar.module.css";
 import Search from "./search";
 import {NavLink, useLocation} from 'react-router-dom'; 
 
+
 export default function Navbar() {
 
   const location = useLocation()
@@ -21,6 +22,9 @@ export default function Navbar() {
         {pathname === '/countries'?<Search />:<h1>PI-Countries</h1>}
         
       </div>
+      <NavLink to={'/countries/game'}>
+        <button>Game</button>
+      </NavLink>
     </div>
   );
 }

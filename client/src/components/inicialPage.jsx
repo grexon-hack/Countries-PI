@@ -23,14 +23,16 @@ export default function InicialPage(){
     
     return (
         <div className={styles.initialview}>
-
+            <div className={styles.poemWorld}>
+                
+            </div>
             <div className={styles.borderAlert}>
 
             <div className={styles.alertInitial}>
 
-            <h1>inicialPage</h1>
+            <h1>Countries-PI</h1>
             <NavLink to={'/countries'}>
-            <button onClick={() => muestra()}>dispatch</button>
+            <button onClick={() => muestra()}>Start</button>
             </NavLink>
             </div>
             </div>

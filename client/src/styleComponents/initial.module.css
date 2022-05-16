@@ -15,6 +15,11 @@
     color: black;
     background: none;
 }
+.initialview h1 {
+    font-size: 40px;
+    text-shadow: 3px 1px 2px black;
+    color: var(--letter);
+}
 .borderAlert {
     width: 410px;
     height: 210px;
@@ -24,6 +29,7 @@
     z-index: 1;
     overflow: hidden;
     position: fixed;
+    border-radius: 50%;
     /* background-color: var(--Target); */
 
 }
@@ -34,6 +40,7 @@
     align-items: center;
     justify-content: space-around;
     background-color: var(--Target);
+    border-radius: 50%;
 }
 .alertInitial::before {
     content: '';

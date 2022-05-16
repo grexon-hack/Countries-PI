@@ -6,6 +6,7 @@ import DetailsPage from './components/detailsPage';
 import InicialPage from './components/inicialPage';
 import MainPage from './components/mainPage';
 import Navbar from './components/navbar';
+import Game from './components/game/Game.jsx';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route exact path={'/countries'} component={MainPage}/>
         <Route exact path={'/countries/details'} component={DetailsPage}/>
         <Route exact path={'/countries/creator'} component={CreatorPage}/>
+        <Route exact path={'/countries/game'} component={Game}/>
       </React.Fragment>
   );
 }

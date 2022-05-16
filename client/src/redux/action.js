@@ -86,10 +86,15 @@ export function callApiFilterAct(valueFilter) {
 export function ordenAlpha(mode) {
 // filtro alfabetico
 
-    return function (dispatch) {
-        return fetch(`http://localhost:3002/countries?mode=${mode}`)
-            .then(response => response.json())
-            .then(data => dispatch({ type: 'DATA', payload: data }))
+    // return function (dispatch) {
+    //     return fetch(`http://localhost:3002/countries?mode=${mode}`)
+    //         .then(response => response.json())
+    //         .then(data => dispatch({ type: 'DATA', payload: data }))
+    // }
+    
+    return {
+        type : 'ORDERALPHA',
+        payload : mode
     }
 
 }
@@ -97,10 +102,15 @@ export function ordenAlpha(mode) {
 export function ordenPopul(mode) {
 // filtro por poblacion
 
-    return function (dispatch) {
-        return fetch(`http://localhost:3002/countries?popul=${mode}`)
-            .then(response => response.json())
-            .then(data => dispatch({ type: 'DATA', payload: data }))
+    // return function (dispatch) {
+    //     return fetch(`http://localhost:3002/countries?popul=${mode}`)
+    //         .then(response => response.json())
+    //         .then(data => dispatch({ type: 'DATA', payload: data }))
+    // }
+
+    return {
+        type : 'ORDERPOPUL',
+        payload : mode
     }
 
 }

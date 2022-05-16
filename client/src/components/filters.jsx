@@ -24,7 +24,7 @@ export default function FilterPage() {
     }
     return acc;
   }, []);
-
+  
   return (
     <div className={styles.containFilter}>
       <svg

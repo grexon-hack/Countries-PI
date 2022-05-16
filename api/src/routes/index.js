@@ -64,7 +64,7 @@ router.get('/countries/name', async (req, res) => {
 });
 
 router.get('/countries', async (req, res) => {
-    const { filterC, mode, popul, filterA } = req.query;
+    const { filterC, filterA } = req.query;
 
     try {
 
@@ -77,7 +77,7 @@ router.get('/countries', async (req, res) => {
                     attributes: []
                 }
             }],
-            order: mode ? [["Name", mode]] : popul ? [["Population", popul]] : null
+            // order: mode ? [["Name", mode]] : popul ? [["Population", popul]] : null
         });
 
 
