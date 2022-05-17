@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "../../styleComponents/game.module.css";
-import image from '../image/mapita.png'
+import image from '../image/mapita.png';
+import desOrden from "./cards";
 
 export default function Game() {
   const selector = useSelector((state) => state.countries);
@@ -20,22 +21,6 @@ export default function Game() {
   const [ name, setName ] = useState('');
   const [ estadoJugador, setEstadoJugador ] = useState('')
 
-  const desOrden = (final) => {
-    let num = Math.floor(Math.random() * selector.length);
-
-    let card1 = selector.slice(num, num + final).sort();
-    let card2 = card1.slice(0);
-    const cardFull = [...card1, ...card2];
-
-    for (let i = 0; i < cardFull.length; i++) {
-      let num = Math.floor(Math.random() * (cardFull.length - i));
-      var tmp = cardFull[i];
-      cardFull[i] = cardFull[num];
-      cardFull[num] = tmp;
-    }
-
-    return cardFull;
-  };
 
   useEffect(() => {
    let inicio = prompt('Enter your name');
@@ -116,7 +101,7 @@ export default function Game() {
       data.className = clase;
     });
 
-    setArray([...desOrden(corte)]);
+    setArray([...desOrden(selector, corte)]);
   }, [nivel, corte, gameOver]);
 
   return (

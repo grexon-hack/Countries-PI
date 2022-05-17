@@ -6,7 +6,7 @@ export function Validate(input) {
     let errors = {};
 
     if (!input.Name) errors.Name = 'Name is required';
-    else if (!/^[a-zA-Z]+(\s*[a-zA-Z]*)*[a-zA-Z]+$/.test(input.Name)) errors.Name = 'Not number';
+    else if (!/^[a-zA-Z]+(\s*[a-zA-Z]*)*[a-zA-Z]+$/.test(input.Name)) errors.Name = 'Not numbers or simbols';
     if (input.Difficult > 5 || input.Difficult < 1) errors.Difficult = 'value must be between 1 and 5';
     if (!input.Duration) errors.Duration = 'Duration is required';
     if (!input.Season1) errors.Season1 = 'Season is required, remember the seasons of the year';

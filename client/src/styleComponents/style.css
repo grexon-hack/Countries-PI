@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;500;600&display=swap");
 
+
 :root {
   --ColorBotons: #48bfe3;
   --BackGround: #001233;
@@ -9,6 +10,7 @@
   --letter: #ffffff;
   --targetInfo: #aed9e056;
   --hoverBotton: #64dfdf;
+ 
 }
 
 * {
