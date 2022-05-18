@@ -23,7 +23,8 @@ export function IsEmpty(input) {
     const { Name, Difficult, Duration, Season1 } = input;
 
     if (!Name || !Difficult || !Duration || !Season1) {
-        return alert('You need to fill out the entire form to send the request')
+       return alert('You need to fill out the entire form to send the request');
+        
     }
     return true
 }
