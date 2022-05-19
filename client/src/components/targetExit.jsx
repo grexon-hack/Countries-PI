@@ -1,4 +1,3 @@
-
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { callApi } from '../redux/action';
@@ -26,9 +25,9 @@ export default function TargetExit() {
                  <strong>DataBase</strong>
             </p>
             
-            </div>
             <div className={styles.botones}>
             <button onClick={() => handlerClick()}>Exit</button>
+            </div>
             </div>
         </div>
         </>

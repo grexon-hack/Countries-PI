@@ -99,8 +99,11 @@ export default function CreatorPage() {
         </>
       ) : (
         <>
-          <h1>creatorPage</h1>
-          <button onClick={() => history.push("/countries")}>atras</button>
+          
+          <button 
+          onClick={() => history.push("/countries")}
+          style={{position: 'absolute', left: '5px', top: '85px'}}
+          >atras</button>
           <div className={styles.containerFormulario}>
             <div className={styles.formulario}>
               <form onSubmit={(e) => handlerSubmit(e)}>

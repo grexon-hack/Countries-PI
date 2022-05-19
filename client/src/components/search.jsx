@@ -37,7 +37,6 @@ export default function Search() {
 
   return (
     <div className={styles.search}>
-      <h2>Search</h2>
         <div className={styles.nav}>
           
           <input type="text" value={name} onChange={(e) => handlerChange(e)} />

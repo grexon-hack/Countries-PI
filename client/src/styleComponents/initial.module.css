@@ -1,6 +1,6 @@
 .initialview {
     width: 100%;
-    height: calc(100vh);
+    height: 100vh;
     background-image: url('https://studentsforliberty.org/eslibertad/wp-content/uploads/sites/4/2021/09/globalizacion-politica-internacional-economia.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -81,23 +81,34 @@
 }
 
 .poemWorld .versos {
-    width: 60%;
-    height: 80%;
+    width: 65%;
+    height: 70%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     transition: 2s ease-in-out;
-    padding: 15px;
+    padding: 20px;
     margin: 5px;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    
+   font-size: 15px;
 }
 
 .botones {
     width: 100px;
+    margin-top: 20px;
 }
 
 .botones span {
     padding: 0 10px;
+}
+
+@media (max-width : 950px){
+    .initialview {
+        flex-direction: column;
+    }
+
+    .poemWorld {
+        display: none;
+    }
+
 }

@@ -3,11 +3,14 @@ import styles from "../styleComponents/detail.module.css";
 import { useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 
+import {arregloHorario} from './hora.js'
+
 export default function DetailsPage() {
   const selector = useSelector((state) => state.details);
   const history = useHistory();
 
   const [swith, setSwith] = useState(false);
+  const [ hora, setHora ] = useState(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -15,15 +18,43 @@ export default function DetailsPage() {
     }, 1000);
   }, []);
 
+  let hours;
+ useEffect(() => {
+     if(swith) {
+    hours = setTimeout(() => {
+        ticktack()
+        
+      }, 1000);
+     } 
+
+ });
+
+ const ticktack = () => {
+  setHora(arregloHorario(selector.Name, selector.Timezone))
+ }
+
+ useEffect(() => {
+  clearTimeout(hours)
+ },[])
+
+ 
   return (
     <div className={styles.container}>
-      <button onClick={() => history.push("/countries")}>atras</button>
+      <button
+      style={{position:'absolute', left : '5px', top:'85px'}}
+      onClick={() => history.push("/countries")}>atras</button>
       <div className={styles.containDetail}>
         {swith ? (
           <div className={styles.targetDetail}>
             <div className={styles.image}>
+              <div>
               <h3>{selector.NameOficial}</h3>
               <img src={selector.Image} alt="bandera" />
+              </div>
+              <div className={styles.hour}>
+
+              <p>{hora}</p>
+              </div>
             </div>
             <div className={styles.detailInfo}>
               <h1>detailsCountry</h1>
@@ -41,6 +72,7 @@ export default function DetailsPage() {
               <a href={selector.Maps} rel="opener">
                 Map
               </a>
+              
             </div>
             <div className={styles.detailActivity}>
               <h2>Activities</h2>

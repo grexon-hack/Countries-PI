@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
+    padding-top: 50px;
 }
 
 .containerFormulario {
@@ -54,6 +54,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
 }
 
 .info {
@@ -69,7 +70,7 @@
     margin: 10px;
 }
 .botones{
-    width: 380px;
+    width: 100%;
     display: flex;
     justify-content:flex-end;
 }
@@ -104,10 +105,22 @@
     align-items: center;
 }
 .formulario li {
+    list-style: none;
     margin: 0 5px;
+    background-color: rgba(240, 248, 255, 0.411);
+    color: red;
+    border-radius: 5px;
 }
 
 .formulario span {
     color:red;
     font-size: 12px;
+}
+
+@media (max-width: 500px) {
+    .info {
+        width: 200px;
+
+    }
+    
 }

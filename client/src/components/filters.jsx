@@ -47,10 +47,12 @@ export default function FilterPage() {
         <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM3.5 5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1zM5 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"></path>
       </svg>
 
-      <div className={styles.filtro}>
+      
         {view && (
-          <>
-            <button onClick={() => dispatch(callApi())}>Clear</button>
+          <div className={styles.filtro}>
+            <button onClick={() => dispatch(callApi())} 
+              style={{height: 'fit-content'}}
+            >Clear</button>
             <form>
               <p>Continents:</p>
               <select
@@ -86,7 +88,7 @@ export default function FilterPage() {
             <form>
               <p>Alphabetic:</p>
               <select
-                name="cars"
+                name="Alphabetic"
                 onChange={(e) =>
                   e.target.value !== "Filter" &&
                   dispatch(ordenAlpha(e.target.value))
@@ -100,10 +102,11 @@ export default function FilterPage() {
             <form>
               <p>Population:</p>
               <select
-                name="cars"
+                name="Population"
                 onChange={(e) =>
                   e.target.value !== "Filter" &&
                   dispatch(ordenPopul(e.target.value))
+                  
                 }
               >
                 <option value={null}>Filter</option>
@@ -111,9 +114,9 @@ export default function FilterPage() {
                 <option value="ASC">ASC</option>
               </select>
             </form>
-          </>
+          
+            </div>
         )}
-      </div>
     </div>
   );
 }

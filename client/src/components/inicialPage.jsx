@@ -10,7 +10,6 @@ export default function InicialPage() {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state.countries);
   const [poem, setPoem] = useState(0);
-  const [cambio, setCambio] = useState(false);
 
   useEffect(() => {
     if (selector.length === 0) {
@@ -21,18 +20,6 @@ export default function InicialPage() {
   function muestra() {
     dispatch(callApi(1));
   }
-  let swith;
-  useEffect(() => {
-   swith = setTimeout(() => {
-      setCambio(!cambio);
-    }, 10000);
-  });
-
-  useEffect(() => {
-    if (cambio)
-      if (poem < 2) setPoem(poem + 1);
-      else setPoem(0);
-  }, [cambio]);
 
   return (
     <div className={styles.initialview}>
@@ -56,7 +43,6 @@ export default function InicialPage() {
                 }}
                 onClick={() => {
                   setPoem(i);
-                  clearTimeout(swith)
                 }}
               >
                 {i}

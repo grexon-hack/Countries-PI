@@ -19,13 +19,13 @@
 }
 .tableInfo {
     height: 100%;
-    width: 15%;
+    width: 20%;
     display: flex;
     flex-direction: column;
 }
 
 .memo {
-    width: 80%;
+    width: 75%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -86,4 +86,24 @@
 
 .containerImage {
     overflow: hidden;
+}
+
+@media (max-width: 900px) {
+    .tablero {
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+    .tableInfo {
+        width: 100%;
+    }
+    .infoPlayer {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 50px;
+    }
+    .containerImage {
+        width: 100px;
+    }
 }
