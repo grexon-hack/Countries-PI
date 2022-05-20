@@ -24,7 +24,7 @@ export default function DetailsPage() {
     hours = setTimeout(() => {
         ticktack()
         
-      }, 1000);
+      }, 1200);
      } 
 
  });
@@ -42,7 +42,7 @@ export default function DetailsPage() {
     <div className={styles.container}>
       <button
       style={{position:'absolute', left : '5px', top:'85px'}}
-      onClick={() => history.push("/countries")}>atras</button>
+      onClick={() => history.push("/countries")}>Back</button>
       <div className={styles.containDetail}>
         {swith ? (
           <div className={styles.targetDetail}>
@@ -69,7 +69,7 @@ export default function DetailsPage() {
               <p>Latitude: {selector.Lat}</p>
               <p>Longitude: {selector.Long}</p>
               <p>Cca3: {selector.ID}</p>
-              <a href={selector.Maps} rel="opener">
+              <a href={selector.Maps} target="_blank" rel="noopener noreferrer">
                 Map
               </a>
               

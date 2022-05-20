@@ -9,12 +9,17 @@ function calcTime(city, offset) {
     // añade la dirferencia horaria
     // recupera la hora en formato UTC
    const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
- 
+    
     // crea un nuevo objeto Date usando la diferencia dada.
    const nd = new Date(utc + (3600000*offset));
- 
     // devuelve la hora como string.
-    return "The current time in " + city + " is: " + nd.toLocaleString();
+    let moment = nd.toLocaleString();
+    let hora = moment.toString().slice(-8, -6);
+    let pmAm = '';
+    if(hora >= '12') pmAm = 'pm';
+    else pmAm = 'am'
+
+    return "The current time in " + city + " is: " + nd.toLocaleString() + ' ' + pmAm;
 }
 
 

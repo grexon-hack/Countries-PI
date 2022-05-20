@@ -103,7 +103,7 @@ export default function CreatorPage() {
           <button 
           onClick={() => history.push("/countries")}
           style={{position: 'absolute', left: '5px', top: '85px'}}
-          >atras</button>
+          >Back</button>
           <div className={styles.containerFormulario}>
             <div className={styles.formulario}>
               <form onSubmit={(e) => handlerSubmit(e)}>
@@ -167,7 +167,7 @@ export default function CreatorPage() {
                   disabled={Object.keys(error).length ? true : false}
                   type="submit"
                 >
-                  Enviar
+                  Send
                 </button>
               </form>
               <ul>

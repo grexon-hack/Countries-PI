@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "../../styleComponents/game.module.css";
-import image from '../image/mapita.png';
+import image from "../image/mapita.png";
 import desOrden from "./cards";
 
 export default function Game() {
@@ -10,22 +10,21 @@ export default function Game() {
   const [events, setEvents] = useState([]);
   const [nivel, setNivel] = useState(1);
   const [puntaje, setPuntaje] = useState(0);
-  const [corte, setCorte] = useState(3);
-  const [oportunity, setOportunity] = useState(3);
+  const [corte, setCorte] = useState(6);
+  const [oportunity, setOportunity] = useState(6);
   const [array, setArray] = useState([]);
   const [firstCard, setFirstCard] = useState(null);
   const [secondCard, setSecondCard] = useState(null);
   const [index, setIndex] = useState(null);
   const [nivelacion, setNivelacion] = useState(0);
   const [gameOver, setGameOver] = useState(false);
-  const [ name, setName ] = useState('');
-  const [ estadoJugador, setEstadoJugador ] = useState('')
-
+  const [name, setName] = useState("");
+  const [estadoJugador, setEstadoJugador] = useState("");
 
   useEffect(() => {
-   let inicio = prompt('Enter your name');
-  setName(inicio)
-  },[])
+    let inicio = prompt("Enter your name");
+    setName(inicio === "" ? "Anonymous" : inicio);
+  }, []);
 
   const clase = "game_back__2lyNE";
 
@@ -73,28 +72,32 @@ export default function Game() {
   useEffect(() => {
     if (nivelacion === corte && oportunity >= 0) {
       setNivel(nivel + 1);
-      setCorte(corte + 1);
-      setOportunity(nivel + 3);
       setNivelacion(0);
-      setEstadoJugador(`${name} have advanced to the next level with ${puntaje} points`)
+      setOportunity(6);
+      setEstadoJugador(
+        `${name} have advanced to the next level with ${puntaje} points`,
+      );
+    }
+    if (nivel === 5 || nivel === 10) {
+      setCorte(corte + 4);
+      setOportunity(nivel + 5);
     }
     if (oportunity < 0) {
       setNivel(1);
-      setCorte(3);
-      setOportunity(3);
+      setCorte(6);
+      setOportunity(6);
       setNivelacion(0);
-      setPuntaje(0)
+      setPuntaje(0);
       setGameOver(!gameOver);
       setEstadoJugador(`${name} have lost the Game`);
-      
     }
   }, [oportunity, puntaje, nivel]);
 
   useEffect(() => {
     setTimeout(() => {
-      setEstadoJugador('')
+      setEstadoJugador("");
     }, 3000);
-  },[estadoJugador])
+  }, [estadoJugador]);
 
   useEffect(() => {
     events.map((data) => {
@@ -102,65 +105,84 @@ export default function Game() {
     });
 
     setArray([...desOrden(selector, corte)]);
-  }, [nivel, corte, gameOver]);
+  }, [nivel, gameOver]);
 
   return (
     <div className={styles.container}>
       <div className={styles.tablero}>
         <div className={styles.tableInfo}>
           <div className={styles.infoPlayer}>
-          <p>Level: {nivel}</p>
-          <p>Points: {puntaje}</p>
-          <p>Opportunities: {oportunity}</p>
+            <p>Level: {nivel}</p>
+            <p>Points: {puntaje}</p>
+            <p>Opportunities: {oportunity}</p>
           </div>
         </div>
         <div className={styles.memo}>
           <h1 className={styles.titulo}>Player: {name}</h1>
           <br />
-          <div className={styles.containerMemo}>
+          <div
+            className={styles.containerMemo}
+            style={{ width: "700px", height: "400px" }}
+          >
             {array.map((data, i) => {
               return (
                 <div
                   key={i}
                   className={styles.containerImage}
                   style={{
-                    width: `calc(1000px  / ${array.length})`,
-                    height: `calc(1000px  / ${array.length})`,
+                    width:
+                      corte === 6
+                        ? `calc(1700px / (${corte * 2}))`
+                        : `calc(2400px / (${corte * 2}))`,
+                    height:
+                      corte === 6
+                        ? `calc(1700px / (${corte * 2}))`
+                        : `calc(2400px / (${corte * 2}))`,
                   }}
                 >
-                  <div className={styles.front} 
-                  style={{
-                    width: `calc(1000px  / ${array.length})`,
-                    height: `calc(1000px  / ${array.length})`,
-                  }}
+                  <div
+                    className={styles.front}
+                    style={{
+                      width:
+                        corte === 6
+                          ? `calc(1700px / (${corte * 2}))`
+                          : `calc(2400px / (${corte * 2}))`,
+                      height:
+                        corte === 6
+                          ? `calc(1700px / (${corte * 2}))`
+                          : `calc(2400px / (${corte * 2}))`,
+                    }}
                   >
-                    <img
-                      src={data.Image}
-                      alt="imagen"
-                      style={{
-                        width: `calc(1000px  / ${array.length})`,
-                        height: `calc(1000px  / ${array.length})`,
-                      }}
-                    />
+                    <img src={data.Image} alt="imagen" />
                   </div>
                   <div
                     className={styles.back}
                     onClick={(e) => handlerClick(e, data.ID, i)}
                     style={{
                       backgroundImage: `url(${image})`,
-                      width: `calc(1010px  / ${array.length})`,
-                      height: `calc(1010px  / ${array.length})`,
-                      top: `calc(-1010px  / ${array.length})`,
+                      width:
+                        corte === 6
+                          ? `calc(1700px / (${corte * 2}))`
+                          : `calc(2400px / (${corte * 2}))`,
+                      height:
+                        corte === 6
+                          ? `calc(1700px / (${corte * 2}))`
+                          : `calc(2400px / (${corte * 2}))`,
+                      top:
+                        corte === 6
+                          ? `calc(-1700px / (${corte * 2}))`
+                          : `calc(-2400px / (${corte * 2}))`,
                     }}
                   ></div>
                 </div>
               );
             })}
           </div>
-          {
-            estadoJugador.length?<h1 className={styles.popop}>{estadoJugador}</h1>:''
-          }
-          
+          {estadoJugador.length ? (
+            <h1 className={styles.popop}>{estadoJugador}</h1>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

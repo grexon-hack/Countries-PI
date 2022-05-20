@@ -54,13 +54,17 @@ export default function Navbar() {
           </div>
         )):(<h1>Countries-PI</h1>)}
       </div>
+      <NavLink to={'/about'} style={{textDecoration: 'none'}}>
+
+      <h4 className={styles.buttonAbout}>About</h4>
+      </NavLink>
       {pathname !== "/countries/game" ? (
-        <NavLink to={"/countries/game"}>
-          <button className={styles.buttonNav}>Game</button>
+        <NavLink to={"/countries/game"} style={{textDecoration: 'none'}}>
+          <h4 className={styles.buttonNav}>Game</h4>
         </NavLink>
       ) : (
-        <NavLink to={"/countries"}>
-          <button>Salir</button>
+        <NavLink to={"/countries"} style={{textDecoration: 'none'}}>
+          <h4 className={styles.buttonNavSalir}>Back</h4>
         </NavLink>
       )}
     </div>

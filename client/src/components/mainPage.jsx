@@ -33,7 +33,7 @@ export default function MainPage() {
                     <img src={data.Image} alt="bandera" />
                   </div>
                   <div className={styles.showSecond}>
-                    <p>{data.Continent}</p>
+                    <p style={{textShadow: '1px 1px 3px azure'}}>{data.Continent}</p>
                     <NavLink to={"/countries/details"}>
                       <button onClick={() => dispatch(detailGet(data.ID))}>
                         Detail

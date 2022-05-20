@@ -1,0 +1,164 @@
+
+.containerAbout {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.button {
+    width: 60px;
+    height: 40px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+    color: azure;
+    border: 2px solid green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 0 5px white;
+}
+.button:hover {
+    box-shadow: 0 0 5px white, 0 0 10px green;
+}
+.containerBanderitas {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow:hidden;
+    background-color: rgba(0, 0, 0, 0.377);
+}
+.banderitas{
+    width: 70px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all .2s ease-out;
+}
+.banderitas img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    border: solid 1px green;
+    box-shadow: 0 0 10px green;
+}
+
+.banderitas:hover{
+    opacity: 1;
+}
+
+.aboutMe {
+    width: 70%;
+    height: 600px;
+    position: absolute;
+    /* top: calc((100vh - 600px) + 5);
+    left: calc((100% - 70%) + 5); */
+    background-color: rgba(5, 5, 14, 0.336);
+    padding: 10px;
+    border-radius: 10px;
+    color: azure;
+    box-shadow: 0 0 5px azure;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.iconos {
+    width: fit-content;
+    height: 100%;
+}
+
+.aboutMe img {
+    width: 240px;
+    border-radius: 50%;
+}
+
+.bordeImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 260px;
+    border-radius: 50%;
+    box-shadow:inset 0 0 10px white, inset 0 0 15px black;
+    
+}
+.reactIcons {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 25px;
+
+}
+.reactIcons svg {
+    cursor: pointer;
+}
+
+.reactIcons svg:hover {
+    transform: scale(1.2);
+}
+.info {
+    padding: 20px;
+    width: 60%;
+    height: 100%;
+}
+
+@media (max-width: 1120px) {
+    .aboutMe {
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+    .iconos {
+        display: flex;
+        align-items: center;
+         width: 100%;
+        justify-content: space-around;
+    }
+    .iconos img {
+        width: 150px;
+    }
+    
+    .info {
+        width: 100%;
+        font-size: 12px;
+    }
+
+}
+
+@media (max-width: 700px) {
+    .iconos img {
+        width: 100px;
+    }
+    .info ul{
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+
+    }
+    .info ul li {
+        list-style: none;
+        border: .5px solid azure;
+        padding: 5px;
+    }
+    .iconos svg {
+        font-size: 15px;
+    }
+    .info {
+        font-size: 8px;
+    }
+}
