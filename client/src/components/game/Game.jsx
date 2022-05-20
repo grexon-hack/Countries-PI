@@ -72,15 +72,16 @@ export default function Game() {
   useEffect(() => {
     if (nivelacion === corte && oportunity >= 0) {
       setNivel(nivel + 1);
-      setNivelacion(0);
       setOportunity(6);
+      setNivelacion(0)
       setEstadoJugador(
         `${name} have advanced to the next level with ${puntaje} points`,
       );
     }
-    if (nivel === 5 || nivel === 10) {
+    if (nivel === 5 && nivelacion === 6 || nivel === 10 && nivelacion === 10 ) {
       setCorte(corte + 4);
       setOportunity(nivel + 5);
+      setNivelacion(0)
     }
     if (oportunity < 0) {
       setNivel(1);
@@ -91,6 +92,7 @@ export default function Game() {
       setGameOver(!gameOver);
       setEstadoJugador(`${name} have lost the Game`);
     }
+    console.log(nivelacion)
   }, [oportunity, puntaje, nivel]);
 
   useEffect(() => {
@@ -105,7 +107,7 @@ export default function Game() {
     });
 
     setArray([...desOrden(selector, corte)]);
-  }, [nivel, gameOver]);
+  }, [nivel, gameOver, corte]);
 
   return (
     <div className={styles.container}>

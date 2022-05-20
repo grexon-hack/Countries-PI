@@ -23,8 +23,8 @@ describe('Country routes', () => {
   beforeEach(() => Countries.sync({ force: true })
     .then(() => Countries.create(country)));
   describe('GET /countries', () => {
-    it('should get 200', () =>
-      agent.get('/countries').expect(200)
+    it('should get 200', () =>{
+      agent.get('/countries').expect(200)}
     );
     it('espera que sea html', function(){
       return agent.get('/countries')
