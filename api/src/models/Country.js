@@ -63,7 +63,8 @@ module.exports = (sequelize) => {
   sequelize.define('TouristActivities', {
     
     Name: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     },
     Difficult: {
       type: DataTypes.INTEGER,
@@ -81,7 +82,8 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING
     },
     Season: {
-      type: DataTypes.ENUM(['Verano', 'Otoño', 'Invierno', 'Primavera'])
+      type: DataTypes.ENUM(['Verano', 'Otoño', 'Invierno', 'Primavera']),
+      allowNull: false
     }
   })
 };

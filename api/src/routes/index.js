@@ -105,7 +105,7 @@ router.get('/countries/:ID', async (req, res) => {
             }]
         })
 
-        return res.json(byId)
+        res.status(200).send(byId)
     }
 })
 
