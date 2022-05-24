@@ -70,11 +70,28 @@
 
 .buttonsP {
     display: flex;
-    justify-content: space-around;
+    justify-content:space-evenly;
 
 }
 
+.numeration {
+    width: 200px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.37);
+    display: flex;
+    justify-content: space-around;
+    font-size: 18px;
+}
+
+.active {
+    color: azure;
+    text-decoration: underline;
+}
+
 @media (max-width: 558px) {
+    .numeration {
+        display: none;
+    }
     .buttonsP {
         justify-content: space-between;
         position: fixed;

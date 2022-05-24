@@ -16,7 +16,7 @@ export default function MainPage() {
     return selector.slice(paginate, paginate + 10);
   };
   //------------------------------------------
-
+ 
   return (
     <div className={styles.containTarget}>
       {selector.length ? (
@@ -45,19 +45,19 @@ export default function MainPage() {
             })}
           </div>
           <div className={styles.buttonsP}>
-            <button
-              onClick={() => paginate > 0 && setPaginate(() => paginate - 10)}
-            >
-              Previous
-            </button>
-            <button
-              onClick={() =>
+            <button onClick={() => paginate > 0 && setPaginate(() => paginate - 10)}>Previous</button>
+            <div className={styles.numeration}>
+
+            <span>{paginate / 10 }</span>
+            <span className={styles.active}> {paginate / 10 + 1}</span>
+            <span>{paginate < selector.length - 10 ? paginate / 10 + 2 : paginate / 10 + 1}</span>
+
+            </div>
+            <button  onClick={() =>
                 paginate < selector.length - 10 &&
                 setPaginate(() => paginate + 10)
-              }
-            >
-              Next
-            </button>
+              }>Next</button>
+            
           </div>
         </>
       ) : (

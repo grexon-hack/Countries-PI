@@ -108,7 +108,7 @@ export default function CreatorPage() {
             <div className={styles.formulario}>
               <form onSubmit={(e) => handlerSubmit(e)}>
                 <p>
-                  <strong>Name:</strong>{" "}
+                  <strong>Name:</strong>
                 </p>
                 <input
                   autoComplete="off"
@@ -120,9 +120,9 @@ export default function CreatorPage() {
                 <br />
                 <span>{error.Name}</span>
                 <br />
-                <br />
+                
                 <p>
-                  <strong>Difficult:</strong>{" "}
+                  <strong>Difficult:</strong>
                 </p>
                 <input
                   autoComplete="off"
@@ -134,9 +134,9 @@ export default function CreatorPage() {
                 <br />
                 <span>{error.Difficult}</span>
                 <br />
-                <br />
+              
                 <p>
-                  <strong>Duration:</strong>{" "}
+                  <strong>Duration:</strong>
                 </p>
                 <input
                   autoComplete="off"
@@ -148,21 +148,35 @@ export default function CreatorPage() {
                 <br />
                 <span>{error.Duration}</span>
                 <br />
-                <br />
+                
                 <p>
-                  <strong>Season:</strong>{" "}
+                  <strong>Season:</strong>
                 </p>
-                <input
-                  autoComplete="off"
-                  type="text"
-                  name="Season1"
-                  value={activity.Season1}
-                  onChange={(e) => handlerChange(e)}
-                />
+                
+                <div className={styles.inputRadio}>
+                  <div className={styles.inputs}>
+                <label htmlFor="season1">Primavera</label>
+                <input type="radio" id="season1" name="Season1" value="Primavera" onChange={(e) => handlerChange(e)}/>
+                </div>
+                  <div className={styles.inputs}>
+                 <label htmlFor="season2">Otoño</label> 
+                <input type="radio"  id="season2" name="Season1" value="Otoño" onChange={(e) => handlerChange(e)}/>
+                </div>
+                  <div className={styles.inputs}>
+                 <label htmlFor="season3">Verano</label> 
+                <input type="radio"  id="season3" name="Season1" value="Verano" onChange={(e) => handlerChange(e)}/>
+                </div>
+                  <div className={styles.inputs}>
+               <label htmlFor="season4">Invierno</label>   
+                <input type="radio" id="season4"  name="Season1" value="Invierno" onChange={(e) => handlerChange(e)}/>
+                </div>
+                </div>
+
+
                 <br />
                 <span>{error.Season1}</span>
                 <br />
-                <br />
+                
                 <button
                   disabled={Object.keys(error).length ? true : false}
                   type="submit"

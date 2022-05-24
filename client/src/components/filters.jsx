@@ -24,7 +24,7 @@ export default function FilterPage() {
     }
     return acc;
   }, []);
-  
+
   return (
     <div className={styles.containFilter}>
       <svg
@@ -47,76 +47,83 @@ export default function FilterPage() {
         <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM3.5 5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1zM5 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"></path>
       </svg>
 
-      
-        {view && (
-          <div className={styles.filtro}>
-            <button onClick={() => dispatch(callApi())} 
-              style={{height: 'fit-content'}}
-            >Clear</button>
-            <form>
-              <p>Continents:</p>
-              <select
-                name="Continents"
-                onChange={(e) => dispatch(callApiFilter(e.target.value))}
-              >
-                <option value={null}>Filter</option>
-                {result.map((d, i) => {
-                  return (
-                    <option key={i} value={d}>
-                      {d}
-                    </option>
-                  );
-                })}
-              </select>
-            </form>
-            <form>
-              <p>Activities:</p>
-              <select
-                name="Activities"
-                onChange={(e) => dispatch(callApiFilterAct(e.target.value))}
-              >
-                <option value={null}>Filter</option>
-                {flat(selector).map((d, i) => {
-                  return (
-                    <option key={i} value={d}>
-                      {d}
-                    </option>
-                  );
-                })}
-              </select>
-            </form>
-            <form>
-              <p>Alphabetic:</p>
-              <select
-                name="Alphabetic"
-                onChange={(e) =>
-                  e.target.value !== "Filter" &&
-                  dispatch(ordenAlpha(e.target.value))
-                }
-              >
-                <option value={null}>Filter</option>
-                <option value="ASC">[A - Z]</option>
-                <option value="DESC">[Z - A]</option>
-              </select>
-            </form>
-            <form>
-              <p>Population:</p>
-              <select
-                name="Population"
-                onChange={(e) =>
-                  e.target.value !== "Filter" &&
-                  dispatch(ordenPopul(e.target.value))
-                  
-                }
-              >
-                <option value={null}>Filter</option>
-                <option value="DESC">DESC</option>
-                <option value="ASC">ASC</option>
-              </select>
-            </form>
-          
-            </div>
-        )}
+      {view && (
+        <div className={styles.filtro}>
+          <button
+            onClick={() => dispatch(callApi())}
+            style={{ height: "fit-content" }}
+          >
+            Clear
+          </button>
+          <form>
+            <p>Continents:</p>
+            <select
+              name="Continents"
+              onChange={(e) =>
+                e.target.value !== "Filter" &&
+                dispatch(callApiFilter(e.target.value))
+              }
+              autoFocus
+            >
+              <option value={null}>Filter</option>
+              {result.map((d, i) => {
+                return (
+                  <option key={i} value={d}>
+                    {d}
+                  </option>
+                );
+              })}
+            </select>
+          </form>
+          <form>
+            <p>Activities:</p>
+            <select
+              name="Activities"
+              onChange={(e) =>
+                e.target.value !== "Filter" &&
+                dispatch(callApiFilterAct(e.target.value))
+              }
+            >
+              <option value={null}>Filter</option>
+              {flat(selector).map((d, i) => {
+                return (
+                  <option key={i} value={d}>
+                    {d}
+                  </option>
+                );
+              })}
+            </select>
+          </form>
+          <form>
+            <p>Alphabetic:</p>
+            <select
+              name="Alphabetic"
+              onChange={(e) =>
+                e.target.value !== "Filter" &&
+                dispatch(ordenAlpha(e.target.value))
+              }
+            >
+              <option value={null}>Filter</option>
+              <option value="ASC">[A - Z]</option>
+              <option value="DESC">[Z - A]</option>
+            </select>
+          </form>
+          <form>
+            <p>Population:</p>
+            <select
+              name="Population"
+              onChange={(e) =>
+                e.target.value !== "Filter" &&
+                dispatch(ordenPopul(e.target.value))
+              }
+            >
+              <option value={null}>Filter</option>
+              <option value="DESC">DESC</option>
+              <option value="ASC">ASC</option>
+            </select>
+          </form>
+        </div>
+      )}
     </div>
   );
 }

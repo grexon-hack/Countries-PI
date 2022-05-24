@@ -116,7 +116,23 @@
     color:red;
     font-size: 12px;
 }
+.inputRadio{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+}
 
+.inputRadio .inputs {
+    display: flex;
+    width: 120px;
+    align-items: center;
+}
+@media (max-width: 1000px) {
+    .inputRadio {
+        display: block;
+    }
+}
 @media (max-width: 500px) {
     .info {
         width: 200px;
