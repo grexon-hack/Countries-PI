@@ -87,6 +87,19 @@ function rootReducer(state = initialState, action) {
                     countries: descendente
                 }
             }
+        case 'ORDENAREA':
+            if(action.payload === 'DESC') {
+                return {
+                    ...state,
+                    countries: state.countries.sort((a, b) => b.Area - a.Area)
+                }
+            }
+            else{
+                return {
+                    ...state,
+                    countries : state.countries.sort((a,b) => a.Area - b.Area)
+                }
+            }
         default:
             return state
     }

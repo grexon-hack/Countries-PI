@@ -114,3 +114,10 @@ export function ordenPopul(mode) {
     }
 
 }
+
+export function ordenArea(mode) {
+    return {
+        type: 'ORDENAREA',
+        payload: mode
+    }
+}

@@ -122,6 +122,20 @@ export default function FilterPage() {
               <option value="ASC">ASC</option>
             </select>
           </form>
+          <form>
+            <p>Area:</p>
+            <select
+              name="Area"
+              onChange={(e) =>
+                e.target.value !== "Filter" &&
+                dispatch(ordenPopul(e.target.value))
+              }
+            >
+              <option value={null}>Filter</option>
+              <option value="DESC">DESC</option>
+              <option value="ASC">ASC</option>
+            </select>
+          </form>
         </div>
       )}
     </div>
