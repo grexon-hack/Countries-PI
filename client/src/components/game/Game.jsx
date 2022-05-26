@@ -78,7 +78,7 @@ export default function Game() {
         `${name} have advanced to the next level with ${puntaje} points`,
       );
     }
-    if (nivel === 5 && nivelacion === 6 || nivel === 10 && nivelacion === 10 ) {
+    if ((nivel === 5 && nivelacion === 6) || (nivel === 10 && nivelacion === 10) ) {
       setCorte(corte + 4);
       setOportunity(nivel + 5);
       setNivelacion(0)
@@ -92,7 +92,7 @@ export default function Game() {
       setGameOver(!gameOver);
       setEstadoJugador(`${name} have lost the Game`);
     }
-    console.log(nivelacion)
+
   }, [oportunity, puntaje, nivel]);
 
   useEffect(() => {
